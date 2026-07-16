@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Maruthi Pharmaceuticals &mdash; Health & Wellness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F6F7F4;
+    --panel: #FFFFFF;
+    --ink: #16241F;
+    --ink-soft: #52625B;
+    --teal: #0F4F45;
+    --teal-deep: #0A3830;
+    --rx: #C1440E;
+    --rx-soft: #F4E3D8;
+    --line: #DCE2DB;
+    --success: #2E7D53;
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+  a{ color:inherit; text-decoration:none; }
+  img{max-width:100%; display:block;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  ::selection{ background:var(--rx-soft); color:var(--teal-deep); }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 28px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:12px 22px;
+    border-radius:var(--radius);
+    font-weight:600; font-size:14px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary{ background:var(--teal); color:#fff; }
+  .btn-primary:hover{ background:var(--teal-deep); transform:translateY(-1px); }
+  .btn-outline{ background:transparent; color:var(--teal); border:1.5px solid var(--teal); }
+  .btn-outline:hover{ background:var(--teal); color:#fff; }
+  .btn-rx{ background:var(--rx); color:#fff; }
+  .btn-rx:hover{ background:#a1380b; }
+  .btn:disabled{ opacity:0.45; cursor:not-allowed; transform:none !important; }
+
+  .notice{
+    background:var(--teal-deep); color:#EAF1EE;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px; letter-spacing:0.03em;
+    text-align:center; padding:8px 12px;
+  }
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(246,247,244,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navbar{
+    display:flex; align-items:center; gap:28px;
+    padding:16px 28px;
+    max-width:1180px; margin:0 auto;
+  }
+  .logo{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
+  .logo-mark{ width:34px; height:34px; border-radius:50%; overflow:hidden; flex-shrink:0; }
+  .logo-mark img{ width:100%; height:100%; object-fit:cover; }
+  .logo-text{ display:flex; flex-direction:column; line-height:1; }
+  .logo-text .name{ font-family:'Fraunces', serif; font-weight:700; font-size:19px; letter-spacing:-0.01em; }
+  .logo-text .tag{ font-family:'IBM Plex Mono', monospace; font-size:9.5px; letter-spacing:0.13em; color:var(--ink-soft); text-transform:uppercase; margin-top:2px; }
+
+  .navlinks{ display:flex; align-items:center; gap:26px; font-size:14.5px; font-weight:500; }
+  .navlinks a{ position:relative; color:var(--ink); padding:4px 0; }
+  .navlinks a::after{
+    content:''; position:absolute; left:0; bottom:-2px; height:2px; width:0;
+    background:var(--rx); transition:width .2s ease;
+  }
+  .navlinks a:hover::after{ width:100%; }
+
+  .navtools{ display:flex; align-items:center; gap:18px; margin-left:auto; }
+  .search-box{
+    display:flex; align-items:center; gap:8px;
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:8px 12px; width:220px;
+  }
+  .search-box input{ border:none; outline:none; font-size:13.5px; width:100%; font-family:'Inter',sans-serif; background:transparent; }
+  .icon-btn{ position:relative; display:flex; align-items:center; justify-content:center; width:38px; height:38px; }
+  .icon-btn svg{ width:20px; height:20px; }
+  .burger{ display:none; }
+
+  .hero{ padding:74px 0 60px; border-bottom:1px solid var(--line); overflow:hidden; }
+  .hero-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:center; }
+  .hero h1{ font-size:52px; line-height:1.05; margin:16px 0 20px; color:var(--teal-deep); }
+  .hero h1 em{ font-style:normal; color:var(--rx); }
+  .hero p.lede{ font-size:16.5px; color:var(--ink-soft); max-width:460px; margin-bottom:30px; line-height:1.6; }
+  .hero-ctas{ display:flex; gap:14px; margin-bottom:34px; }
+  .hero-trust{ display:flex; gap:26px; flex-wrap:wrap; }
+  .trust-item{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-soft); }
+  .trust-item svg{ width:16px; height:16px; color:var(--teal); flex-shrink:0; }
+
+  .rx-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:0 24px 60px -30px rgba(15,79,69,0.35);
+    overflow:hidden;
+    transform:rotate(1.2deg);
+  }
+  .rx-card-top{ background:var(--teal); color:#fff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; }
+  .rx-card-top .eyebrow{ color:#CFE6DE; }
+  .rx-card-top .rx-id{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:#CFE6DE; }
+  .rx-card-body{ padding:22px 20px; }
+  .rx-card-body h3{ font-size:22px; margin-bottom:4px; }
+  .rx-card-body .sub{ font-size:13px; color:var(--ink-soft); margin-bottom:18px; }
+  .rx-line{ display:flex; justify-content:space-between; padding:9px 0; border-top:1px dashed var(--line); font-size:13px; }
+  .rx-line:first-of-type{ border-top:none; }
+  .rx-line span:first-child{ color:var(--ink-soft); font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; }
+  .rx-line span:last-child{ font-weight:600; }
+  .rx-perf{
+    display:flex; align-items:center; gap:8px; margin:16px 0;
+  }
+  .rx-perf::before, .rx-perf::after{ content:''; flex:1; border-top:1px dashed var(--line); }
+  .rx-perf .dot{ width:5px; height:5px; border-radius:50%; background:var(--line); }
+  .rx-card-foot{ display:flex; justify-content:space-between; align-items:center; padding:16px 20px; background:#FAFBF9; border-top:1px solid var(--line); }
+
+  .cats{ padding:30px 0; border-bottom:1px solid var(--line); }
+  .cats-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; }
+  .cats-row::-webkit-scrollbar{ display:none; }
+  .cat-pill{
+    flex-shrink:0;
+    padding:9px 18px;
+    border:1.5px solid var(--line);
+    border-radius:999px;
+    font-size:13.5px; font-weight:500;
+    background:#fff;
+    transition:all .15s ease;
+    white-space:nowrap;
+  }
+  .cat-pill:hover{ border-color:var(--teal); }
+  .cat-pill.active{ background:var(--teal); color:#fff; border-color:var(--teal); }
+
+  .section{ padding:56px 0; }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:30px; }
+  .section-head h2{ font-size:30px; color:var(--teal-deep); margin-top:6px; }
+  .result-count{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); }
+
+  .grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+
+  .product-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    transition:box-shadow .2s ease, transform .2s ease;
+    cursor:pointer;
+  }
+  .product-card:hover{ box-shadow:0 18px 40px -22px rgba(22,36,31,0.28); transform:translateY(-3px); }
+  .product-media{
+    position:relative;
+    height:150px;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, #EEF3EF, #E4ECE6);
+    border-bottom:1px dashed var(--line);
+    overflow:hidden;
+  }
+  .product-media svg{ width:60px; height:60px; color:var(--teal); opacity:0.85; }
+  .tag-row{ position:absolute; top:10px; left:10px; display:flex; gap:6px; }
+  .tag{
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.05em; text-transform:uppercase;
+    padding:4px 8px; border-radius:2px; font-weight:600;
+  }
+  .tag-rx{ background:var(--rx); color:#fff; }
+  .tag-otc{ background:var(--success); color:#fff; }
+  .tag-sale{ background:var(--teal-deep); color:#fff; }
+
+  .product-body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .product-body .eyebrow{ font-size:10px; }
+  .product-body h3{ font-size:16.5px; font-weight:600; line-height:1.3; }
+  .product-spec{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); }
+  .stars{ display:flex; align-items:center; gap:5px; font-size:12px; color:var(--ink-soft); }
+  .stars svg{ width:12px; height:12px; color:#E0A526; }
+
+  .why{ background:var(--teal-deep); color:#fff; padding:64px 0; }
+  .why .wrap{ display:grid; grid-template-columns:repeat(4,1fr); gap:30px; }
+  .why-item svg{ width:26px; height:26px; color:#8FC9B7; margin-bottom:14px; }
+  .why-item h3{ font-size:16.5px; margin-bottom:6px; color:#fff; }
+  .why-item p{ font-size:13px; color:#B9CFC7; line-height:1.55; }
+
+  footer{ background:var(--ink); color:#D7DFDA; padding:56px 0 26px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px; padding-bottom:36px; border-bottom:1px solid #2B3831; }
+  .foot-grid h4{ color:#fff; font-size:13px; margin-bottom:14px; font-family:'IBM Plex Mono',monospace; letter-spacing:.06em; text-transform:uppercase; }
+  .foot-grid ul{ list-style:none; display:flex; flex-direction:column; gap:9px; font-size:13.5px; }
+  .foot-grid ul a:hover{ color:#fff; }
+  .foot-brand p{ font-size:13.5px; color:#A9B8AF; line-height:1.6; max-width:280px; margin-top:12px; }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:22px; font-size:12px; color:#8B9A91; flex-wrap:wrap; gap:12px; }
+
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(15,25,20,0.55);
+    display:flex; align-items:center; justify-content:center; padding:24px;
+    opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:100;
+  }
+  .modal-overlay.show{ opacity:1; pointer-events:auto; }
+  .modal{
+    background:#fff; max-width:880px; width:100%; max-height:88vh; overflow-y:auto;
+    border-radius:2px; display:grid; grid-template-columns:1fr 1fr;
+    transform:translateY(16px); transition:transform .25s ease;
+  }
+  .modal-overlay.show .modal{ transform:translateY(0); }
+  .modal-media{ background:linear-gradient(135deg,#EEF3EF,#E4ECE6); display:flex; align-items:center; justify-content:center; padding:40px; position:relative; overflow:hidden; }
+  .modal-media svg{ width:130px; height:130px; color:var(--teal); }
+  .modal-media img{ max-width:100%; max-height:280px; object-fit:contain; }
+  .modal-close{ position:absolute; top:16px; right:16px; width:34px; height:34px; background:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.12); }
+  .modal-close svg{ width:16px; height:16px; }
+  .modal-body{ padding:34px 32px; display:flex; flex-direction:column; }
+  .modal-body h2{ font-size:26px; margin:10px 0 4px; }
+  .modal-body .sub{ font-size:13.5px; color:var(--ink-soft); margin-bottom:16px; }
+  .modal-desc{ font-size:14px; line-height:1.65; color:var(--ink-soft); margin-bottom:18px; }
+  .spec-sheet{ border:1px solid var(--line); border-radius:2px; margin-bottom:20px; }
+  .spec-sheet .rx-line{ padding:10px 14px; }
+
+  @media (max-width:960px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .rx-card{ transform:none; max-width:420px; }
+    .grid{ grid-template-columns:repeat(2,1fr); }
+    .why .wrap{ grid-template-columns:repeat(2,1fr); }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:720px){
+    .navlinks, .search-box{ display:none; }
+    .burger{ display:flex; }
+    .hero h1{ font-size:36px; }
+    .hero{ padding:44px 0 40px; }
+    .grid{ grid-template-columns:1fr 1fr; gap:14px; }
+    .section-head{ flex-direction:column; align-items:flex-start; gap:8px; }
+    .modal{ grid-template-columns:1fr; }
+    .modal-media{ padding:26px; }
+    .modal-media svg{ width:90px; height:90px; }
+    .why .wrap{ grid-template-columns:1fr; }
+    .foot-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width:480px){
+    .grid{ grid-template-columns:1fr 1fr; gap:10px; }
+    .product-body{ padding:12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  [data-mobile-menu]{
+    display:none; flex-direction:column; gap:2px; background:#fff; border-top:1px solid var(--line);
+  }
+  [data-mobile-menu].open{ display:flex; }
+  [data-mobile-menu] a{ padding:14px 28px; font-size:14.5px; border-bottom:1px solid var(--line); }
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="navbar">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <img src="photos/WhatsApp Image 2026-07-09 at 18.24.12.jpeg" alt="Sri Maruthi Pharmaceuticals logo">
+      </div>
+      <div class="logo-text">
+        <span class="name">Sri Maruthi </span>
+        <span class="tag">Pharmaceuticals</span>
+      </div>
+    </a>
+
+    <nav class="navlinks">
+      <a href="#shop">Shop</a>
+      <a href="#categories">Categories</a>
+      <a href="#why">Why Sri Maruthi Pharmaceuticals</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="navtools">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#52625B" stroke-width="2" width="15" height="15"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" placeholder="Search medicines, devices...">
+      </div>
+      <button class="icon-btn" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#16241F" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+      </button>
+      <button class="icon-btn burger" aria-label="Menu" onclick="document.querySelector('[data-mobile-menu]').classList.toggle('open')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#16241F" stroke-width="1.7"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div data-mobile-menu>
+    <a href="#shop">Shop</a>
+    <a href="#categories">Categories</a>
+    <a href="#why">Why Sri Maruthi Pharmaceuticals</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Retail Pharmacy &amp; Wellness &mdash; Est. 2014</span>
+      <h1>Everyday health,<br>measured out <em>precisely</em>.</h1>
+      <p class="lede">From daily essentials to devices you can trust, every product on Sri Maruthi Pharmaceuticals ships with the same label-grade detail you'd expect from your pharmacist &mdash; dosage, batch, and use, spelled out plainly.</p>
+      <div class="hero-ctas">
+        <a href="#shop" class="btn btn-primary">Shop the catalogue</a>
+        <a href="#why" class="btn btn-outline">How we verify products</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+          Pharmacist-verified stock
+        </div>
+        
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+          Cold-chain for temp-sensitive items
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<section class="cats" id="categories">
+  <div class="wrap">
+    <div class="cats-row" id="catRow"></div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Full catalogue</span>
+        <h2>Shop by product</h2>
+      </div>
+      <span class="result-count" id="resultCount">8 products</span>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="why-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l8 3v6c0 5-3.4 8.6-8 11-4.6-2.4-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      <h3>Verified sourcing</h3>
+      <p>Every batch is checked against manufacturer records before it reaches our shelves &mdash; and yours.</p>
+    </div>
+    <div class="why-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+      <h3>Cold-chain handling</h3>
+      <p>Temperature-sensitive items travel in insulated, monitored packaging from our facility to your door.</p>
+    </div>
+    <div class="why-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+      <h3>Pharmacist on call</h3>
+      <p>Questions about dosage or interactions? A licensed pharmacist reviews every prescription order.</p>
+    </div>
+    <div class="why-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+      <h3>Transparent labeling</h3>
+      <p>Full dosage, ingredient, and usage information on every listing &mdash; no fine print you have to hunt for.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo-text">
+          <span class="name" style="color:#fff;">Sri Maruthi</span>
+          <span class="tag" style="color:#8B9A91;">Pharmaceuticals</span>
+        </div>
+        <p>Licensed retail pharmacy no. TS/RX/2014/0471. Dispensing OTC and prescription medicines, supplements, and medical devices across India.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#shop">All products</a></li>
+          <li><a href="#categories">Categories</a></li>
+          
+          <li><a href="#shop">Vitamins &amp; supplements</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#why">About Sri Maruthi Pharmaceuticals</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+          
+          <li><a href="contact.html">Privacy &amp; terms</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Sri Maruthi Pharmaceuticals Pvt. Ltd. All rights reserved.</span>
+      <span>Pharmaceuticals,Hyderabad,Telangana-502032, India</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalBg(event)">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+const ICONS = {
+  tablet: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="9" width="20" height="6" rx="3" transform="rotate(-20 12 12)"/><path d="M12 8l-2 8" transform="rotate(-20 12 12)"/></svg>`,
+  bottle: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 2h6M10 2v4l-3 3v11a2 2 0 002 2h6a2 2 0 002-2V9l-3-3V2"/><path d="M8 14h8"/></svg>`,
+  spray: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 22V10a3 3 0 013-3h1V4h3v3l3 1v2l-3 1v11"/><path d="M17 9l3-2M18 12h3M17 6l2-2"/></svg>`,
+  device: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="3" width="16" height="18" rx="2"/><rect x="7" y="6" width="10" height="6" rx="1"/><circle cx="9" cy="16" r="1"/><circle cx="13" cy="16" r="1"/><circle cx="17" cy="16" r="1"/></svg>`,
+  strip: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 6v12M11 6v12M15 6v12"/></svg>`,
+  cream: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 8V5a2 2 0 012-2h6a2 2 0 012 2v3"/><rect x="5" y="8" width="14" height="13" rx="2"/><path d="M9 13h6"/></svg>`,
+  gummy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="10" r="5"/><circle cx="15" cy="15" r="5"/></svg>`,
+  bandage: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(45 12 12)"/><circle cx="9" cy="9" r=".6" fill="currentColor" stroke="none" transform="rotate(45 12 12)"/></svg>`,
+  mask: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10c3-3 15-3 18 0v3c-3 4-15 4-18 0v-3z"/><path d="M3 10l-2 1M21 10l2 1"/></svg>`
+};
+
+const PRODUCTS = [
+  { id:'p9', name:'OMIM Omega-3 Softgel Capsules', brand:'OMIM', cat:'Vitamins', icon:'gummy', image:'photos/Screenshot 2026-07-09 192240.png', rating:4.6, reviews:812,
+    pack:'60 capsules', form:'Softgel capsule', otc:true,
+    desc:'Omega-3 fatty acid with added vitamins and minerals in an easy-to-swallow softgel, for everyday heart and joint support.',
+    dosage:'1 capsule daily with a meal, or as directed', usage:'Oral, swallow whole', storage:'Below 25&deg;C, refrigerate after opening' },
+  { id:'p13', name:' KOLOWIN-SF 200gm', brand:'LSM-500', cat:'Vitamins', icon:'Powder', image:'photos/Screenshot 2026-07-09 192355.png', rating:4.6, reviews:221,
+    pack:'Powder', form:'Powder', otc:true,
+    desc:'A whey-based protein blend fortified with essential Vitamins and minerals to support daily nutrition, muscle recovery, and active lifestyles. Mixes easily into milk or water for a quick, balanced protein boost.',
+    dosage:'1 scoop (approx. 30g) daily, or as directed', usage:'Mix with 200–250ml milk or water; shake well', storage:'Store in a cool, dry place; reseal after use' },
+  { id:'p1', name:'Sam-Levo 500 Levofloxacin Tablets I.P. 500 mg', brand:'Sri Maruthi', cat:'Antibiotics', icon:'tablet', image:'photos/Screenshot 2026-07-09 192505.png', pack:'10 tablets', form:'Film-coated tablet', otc:true, rating:4.6, reviews:812,
+    desc:'Levofloxacin 500 mg is a prescription fluoroquinolone antibiotic used to treat a variety of bacterial infections, including respiratory, urinary tract, skin, and soft tissue infections.',
+    dosage:'As prescribed by the physician, usually 1 tablet once daily', usage:'Oral, swallow whole with water. Can be taken with or without food. Avoid taking with dairy products, antacids, or iron/calcium supplements within 2 hours.', storage:'Store below 25°C in a cool, dry place away from direct sunlight' },
+  { id:'p2', name:'Renocyst Tablet', brand:'Sri Maruthi', cat:'Health Supplements', icon:'tablet', image:'photos/Screenshot 2026-07-09 192644.png', pack:'10 tablets', form:'tablet', otc:true, rating:4.8, reviews:530,
+    desc:'Renocyst Tablet is a health supplement containing N-Acetyl L-Cysteine (NAC) and Taurine. It provides antioxidant support, helps protect cells from oxidative stress, and supports liver, kidney, and overall metabolic health.',
+    dosage:'1 tablet daily after meals, or as directed by a healthcare professional.', usage:'Oral, swallow whole with water. Do not crush or chew the tablet.', storage:'Store below 25°C in a cool, dry place away from direct sunlight and moisture.' },
+  { id:'p3', name:'Mostliv-UD 300 Tablets', brand:'Sri Maruthi', cat:'Liver Care', icon:'Tablet', image:'photos/Screenshot 2026-07-09 192858.png', pack:'10x10 tablets', form:'Tablet', otc:true, rating:4.5, reviews:1204,
+    desc:'Mostliv-UD 300 contains Ursodeoxycholic Acid 300 mg, a prescription medicine used to dissolve certain cholesterol gallstones and treat liver and bile duct disorders such as primary biliary cholangitis. It helps improve bile flow and protects liver cells.',
+    dosage:'As prescribed by the physician, usually 1 tablet 2–3 times daily with meals.', usage:'Oral, swallow the tablet whole with water. Take with food for better absorption. Do not crush or chew unless advised by your doctor.', storage:'Store below 25°C in a cool, dry place away from direct sunlight and moisture.' },
+  { id:'p4', name:'COOLPPI-LS Capsules', brand:'Sri Maruthi', cat:'Gastrointestinal', icon:'capsule', image:'photos/coolpp.jpeg', pack:'10x10 capsules', form:'SR Capsule', otc:true, rating:4.4, reviews:298,
+    desc:'COOLPPI-LS Capsules contain Rabeprazole Sodium (EC) and Levosulpiride (SR), a prescription combination medicine used to treat gastroesophageal reflux disease (GERD), acid reflux, gastritis, peptic ulcers, and functional dyspepsia. It reduces stomach acid production and improves gastrointestinal motility.',
+    dosage:'As prescribed by the physician, usually 1 capsule once daily before meals.', usage:'Oral, swallow the capsule whole with water. Do not crush, chew, or open the capsule. Take preferably 30 minutes before breakfast.', storage:'Store below 25°C in a cool, dry place away from direct sunlight and moisture.' },
+  { id:'p5', name:'BILTY-M Tablets', brand:'Sri Maruthi', cat:'Allergy', icon:'Tablet', image:'photos/bilty.jpeg', pack:'10x10 tablets', form:'Film-coated Tablet', otc:true, rating:4.3, reviews:667,
+    desc:'BILTY-M Tablets contain Bilastine 20 mg and Montelukast 10 mg, a prescription combination medicine used for the treatment of allergic rhinitis, seasonal allergies, and chronic urticaria (hives). It helps relieve sneezing, runny nose, nasal congestion, itchy eyes, and other allergy symptoms.',
+    dosage:'As prescribed by the physician, usually 1 tablet once daily.', usage:'Oral, swallow the tablet whole with water. Take on an empty stomach, at least 1 hour before or 2 hours after food, unless otherwise directed by your doctor.', storage:'Store at room temperature below 30°C in a cool, dry place away from direct sunlight and moisture.' },
+  { id:'p6', name:'Molpace 1000 SR Tablets', brand:'Sri Maruthi', cat:'Pain Relief', icon:'Tablet', image:'photos/Screenshot 2026-07-09 193233.png', pack:'10x10 tablets', form:'Sustained Release Tablet', otc:true, rating:4.7, reviews:410,
+    desc:'Molpace 1000 SR contains Paracetamol 1000 mg (300 mg Immediate Release + 700 mg Sustained Release). It is used to relieve mild to moderate pain and reduce fever, providing both rapid onset and prolonged pain relief.',
+    dosage:'As prescribed by the physician, usually 1 tablet every 8–12 hours. Do not exceed the recommended daily dose.', usage:'Oral, swallow the tablet whole with water. Do not crush, chew, or break the sustained-release tablet. Can be taken with or without food.', storage:'Store below 30°C in a cool, dry place away from direct sunlight and moisture.' },
+  { id:'p7', name:'Flexnac-D Tablets', brand:'Sri Maruthi', cat:'Pain Relief', icon:'Tablet', image:'photos/flexnac.jpeg', pack:'10x10 tablets', form:'Tablet', otc:true, rating:4.7, reviews:410,
+    desc:'Flexnac-D Tablets contain Diclofenac Potassium and Metaxalone. It is a prescription medicine used to relieve pain, inflammation, and muscle spasms associated with musculoskeletal conditions such as sprains, strains, back pain, and sports injuries. Diclofenac reduces pain and swelling, while Metaxalone relaxes skeletal muscles.',
+    dosage:'Take as prescribed by the physician, usually 1 tablet 2–3 times daily after food. Do not exceed the prescribed dose.', usage:'Oral, swallow the tablet whole with a glass of water. Do not crush or chew the tablet. It is recommended to take after meals to reduce stomach irritation.', storage:'Store below 30°C in a cool, dry place away from direct sunlight and moisture. Keep out of reach of children.' },
+  
+];
+
+const CATEGORIES = ['All', ...new Set(PRODUCTS.map(p=>p.cat))];
+
+let activeCat = 'All';
+let searchTerm = '';
+
+function renderCats(){
+  const row = document.getElementById('catRow');
+  row.innerHTML = CATEGORIES.map(c => `
+    <button class="cat-pill ${c===activeCat?'active':''}" onclick="setCategory('${c}')">${c}</button>
+  `).join('');
+}
+function setCategory(c){ activeCat = c; renderCats(); renderGrid(); }
+
+function renderGrid(){
+  const grid = document.getElementById('productGrid');
+  const list = PRODUCTS.filter(p=>{
+    const matchCat = activeCat==='All' || p.cat===activeCat;
+    const matchSearch = (p.name+' '+p.brand+' '+p.cat).toLowerCase().includes(searchTerm.toLowerCase());
+    return matchCat && matchSearch;
+  });
+  document.getElementById('resultCount').textContent = list.length + ' product' + (list.length!==1?'s':'');
+
+  if(list.length===0){
+    grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:60px 0; color:var(--ink-soft);">
+      No products match &ldquo;${searchTerm}&rdquo;. Try another search or category.
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => `
+    <div class="product-card" onclick="openModal('${p.id}')">
+      <div class="product-media">
+        <div class="tag-row">
+          <span class="tag ${p.otc?'tag-otc':'tag-rx'}">${p.otc?'OTC':'Rx only'}</span>
+        </div>
+        ${p.image ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover;">` : ICONS[p.icon]}
+      </div>
+      <div class="product-body">
+        <span class="eyebrow">${p.cat}</span>
+        <h3>${p.name}</h3>
+        <span class="product-spec">${p.pack} &middot; ${p.form}</span>
+        <div class="stars">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4.3L18 21l-6-4.3L6 21l1.5-7.7L2 9h7z"/></svg>
+          ${p.rating} (${p.reviews})
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  document.getElementById('modalContent').innerHTML = `
+    <div class="modal-media">
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#16241F" stroke-width="1.8"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      ${p.image ? `<img src="${p.image}" alt="${p.name}">` : ICONS[p.icon]}
+    </div>
+    <div class="modal-body">
+      <span class="eyebrow">${p.cat} &middot; ${p.brand}</span>
+      <h2>${p.name}</h2>
+      <div class="sub">${p.pack} &middot; ${p.form} &middot; ${p.otc?'Over-the-counter':'Prescription required'}</div>
+      <p class="modal-desc">${p.desc}</p>
+      <div class="spec-sheet">
+        <div class="rx-line"><span>Dosage</span><span>${p.dosage}</span></div>
+        <div class="rx-line"><span>Usage</span><span>${p.usage}</span></div>
+        <div class="rx-line"><span>Storage</span><span>${p.storage}</span></div>
+      </div>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+function closeModalBg(e){
+  if(e.target.id==='modalOverlay') closeModal();
+}
+
+document.getElementById('searchInput').addEventListener('input', (e)=>{
+  searchTerm = e.target.value;
+  renderGrid();
+});
+
+renderCats();
+renderGrid();
+</script>
+</body>
+</html>
